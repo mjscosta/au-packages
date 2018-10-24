@@ -58,11 +58,11 @@ function Set-DescriptionFromInstaller($Package) {
         $components.Add($component_keys[$i], $component_descriptions[$i])
     }
     
-    $description_template = '"
-#### Optional Components
-$($components.GetEnumerator() | % { "* ``$($_.Name)`` - $($_.Value)`n" })
- 
-"'
+    
+    
+    $description_components = " $($components.GetEnumerator() | % { "* ``$($_.Name)`` - $($_.Value)`n" })"
+    
+    $description_body = "#### Optional Components`n" + $description_components + "`n"
 
     $description_header = 'Intel® RealSense™ SDK 2.0 is a cross-platform library for Intel® RealSense™ depth cameras (D400 series and the SR300).
 
@@ -71,18 +71,16 @@ The SDK allows depth and color streaming, and provides intrinsic and extrinsic c
 
     $description_footer = '#### Package Parameters
 The following package parameters can be set:
- * ``/NoIcons`` - install quick lauch icon
- * ``/Components`` - list of components optional components to install.
 
-These parameters can be passed to the installer with the use of ``-params``.
-For example: ``-params ''"/NoIcons /Components tools,dev"''``.
+ * `/NoIcons` - install quick lauch icon
+ * `/Components` - list of components optional components to install.
+
+These parameters can be passed to the installer with the use of `-params`.
+For example: `-params ''"/NoIcons /Components tools,dev"''`.
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and
 let them know the package is no longer updating correctly.'
-
-
-    $description_body = Invoke-Expression $description_template
     
     $updated_description = $description_header + $description_body + $description_footer
     $cdata = $Package.NuspecXml.CreateCDataSection($updated_description)
