@@ -52,27 +52,16 @@ Intel® RealSense™ SDK 2.0 is a cross-platform library for Intel® RealSense�
 
 The SDK allows depth and color streaming, and provides intrinsic and extrinsic calibration information. The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for record and playback of streaming sessions.
 
-### Package Specifics
-Installs by default tools,dev,py,net,matlab, see below.
-
-#### Optional Components
- * `tools` - Intel RealSense Viewer and Quality Tool
- * `dev` - C / C++ Developer Package
- * `py` - Python 2.7 / 3.6 Developer Package
- * `net` - .NET Developer Package
- * `matlab` - Matlab Developer Package
- * `pdb` - Debug Symbols
 
 #### Package Parameters
 The following package parameters can be set:
- * `/Full` - Install all items, same as "/Components tools,dev,py,net,matlab,pdb"
- * `/Components` - list of components to install, from "tools,dev,py,net,matlab,pdb"
- * `/NoIcons` - install quick lauch icon
+ * `/NoIcons` - install no icons
+ * `/Components` - list of components optional components to install.
 
-If no parameters are given, the install components are tools,dev,py,net,matlab.
+
  
 These parameters can be passed to the installer with the use of `-params`.
-For example: `-params '"/QuickLaunchIcon /Components tools,dev"'`.
+For example: `-params '"/NoIcons /Components tools,dev"'`.
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and

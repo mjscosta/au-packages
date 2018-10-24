@@ -6,11 +6,11 @@ $toolsPath = Split-Path $MyInvocation.MyCommand.Definition
 $pp = Get-PackageParameters
  
 $packageArgs = @{
-    PackageName  = $env:chocolateyPackageName
+    PackageName  = 'realsense.sdk'
     FileType     = 'exe'
     SoftwareName = 'Intel® RealSense™ SDK 2.0'
     url          = 'https://github.com/IntelRealSense/librealsense/releases/download/v2.16.0/Intel.RealSense.SDK.exe'
-    checksum     = ''
+    checksum     = 'bef050758f4259cfb638ddcacdafb414ca4296522c46b3dec5224921a7609ffd'
     checksumType = "sha256"
     silentArgs   = "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/NOCANCEL", "/SP-", 
                    "/LOG=`"$($env:TEMP)\$($env:chocolateyPackageName).$($env:chocolateyPackageVersion).Install.log`"", 
