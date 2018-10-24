@@ -28,22 +28,24 @@ function global:au_GetLatest {
 function Set-DescriptionFromInstaller($Package) {
     $pkg_path = [System.IO.Path]::GetFullPath("$Env:TEMP\chocolatey\$($package.Name)\" + $global:Latest.Version)
     $installer_path = Join-Path $pkg_path $Latest.InstallerFileName
-    $readme_path = Join-Path $pkg_path 'readme.md'
+    $installer_script = Join-Path $pkg_path 'install_script.iss'
     
-    Get-WebFile -Url 'https://github.com/IntelRealSense/librealsense/blob/master/readme.md' -FileName $readme_path -Passthru
-    
-    $readme_description = Get-Content -Raw -Path $readme_path
-    
-    Out-String -InputObject "piiiiiiiiiiiitttttttttoooooooooo"
-    
+    # clean installer script otherwise it will hang
+    if(Test-Path $installer_script) {
+        rm $installer_script
+    }
+
     # Extract components from the installer
-    .\tools\innounp.exe -x $installer_path -d$pkg_path 'install_script.iss'
+    .\tools\innounp.exe -x $installer_path "-d$pkg_path" 'install_script.iss'
     
     if($LASTEXITCODE -ne 0) {
         throw "Error extracting the installer meta file, with the components."
     }
 
-    $stringmatch = Get-Content -Raw -Path Join-Path $pkg_path 'install_script.iss'
+    $stringmatch = Get-Content -Raw -Path $installer_script
+
+    # clean installer script otherwise it will hang
+    rm $installer_script
 
     $matches = Select-String -InputObject $stringmatch '\[Components\]\s*\n((Name:\s*"(\w+)";\s*Description:\s*"([^"]+)").*\n)+' -AllMatches
 
@@ -56,10 +58,18 @@ function Set-DescriptionFromInstaller($Package) {
         $components.Add($component_keys[$i], $component_descriptions[$i])
     }
     
-    $description = '"#### Optional Components
+    $description_template = '"
+#### Optional Components
 $($components.GetEnumerator() | % { "* ``$($_.Name)`` - $($_.Value)`n" })
  
-#### Package Parameters
+"'
+
+    $description_header = 'Intel® RealSense™ SDK 2.0 is a cross-platform library for Intel® RealSense™ depth cameras (D400 series and the SR300).
+
+The SDK allows depth and color streaming, and provides intrinsic and extrinsic calibration information. The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for record and playback of streaming sessions.
+'
+
+    $description_footer = '#### Package Parameters
 The following package parameters can be set:
  * ``/NoIcons`` - install quick lauch icon
  * ``/Components`` - list of components optional components to install.
@@ -69,30 +79,22 @@ For example: ``-params ''"/NoIcons /Components tools,dev"''``.
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and
-let them know the package is no longer updating correctly.
-"'
+let them know the package is no longer updating correctly.'
 
-#    $result = Invoke-Expression $description
+
+    $description_body = Invoke-Expression $description_template
     
+    $updated_description = $description_header + $description_body + $description_footer
+    $cdata = $Package.NuspecXml.CreateCDataSection($updated_description)
+    $xml_Description = $Package.NuspecXml.GetElementsByTagName('description')[0]
+    $xml_Description.RemoveAll()
+    $xml_Description.AppendChild($cdata) | Out-Null
+
+    $Package.SaveNuspec()    
 }
 
 function global:au_AfterUpdate ($Package)  {
-    $host.ui.WriteErrorLine( '-----------------------------------------------')
-    
-    Set-DescriptionFromInstaller $Package
-    
-    Out-String -InputObject $LASTEXITCODE
-    
-    Out-String -InputObject $Latest.InstallerFileName
-
-    Out-String -InputObject $Latest.URL32
-    
-    Out-String -InputObject $pkg_path -Width 100
-    
-    Out-String -InputObject $Package.Result -Width 100
-    
-    Out-String -InputObject $Package -Width 100
-    
+    Set-DescriptionFromInstaller $Package  
 }    
 
 update -ChecksumFor 32

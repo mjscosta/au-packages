@@ -47,25 +47,7 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
     <bugTrackerUrl>https://github.com/IntelRealSense/librealsense/issues</bugTrackerUrl>
     <tags>realsense depth-camera sdk</tags>
     <summary>Intel® RealSense™ SDK 2.0 and Tools (for Windows)</summary>
-    <description>
-Intel® RealSense™ SDK 2.0 is a cross-platform library for Intel® RealSense™ depth cameras (D400 series and the SR300).
-
-The SDK allows depth and color streaming, and provides intrinsic and extrinsic calibration information. The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for record and playback of streaming sessions.
-
-#### Optional Components
- 
-#### Package Parameters
-The following package parameters can be set:
- * ``/NoIcons`` - install quick lauch icon
- * ``/Components`` - list of components optional components to install.
-
-These parameters can be passed to the installer with the use of ``-params``.
-For example: ``-params ''"/NoIcons /Components tools,dev"''``.
-
-**Please Note**: This is an automatically updated package. If you find it is 
-out of date by more than a day or two, please contact the maintainer(s) and
-let them know the package is no longer updating correctly.    
-    </description>
+    <description>empty description, to be filled by to automatic updater.</description>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
