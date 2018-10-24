@@ -52,22 +52,20 @@ Intel® RealSense™ SDK 2.0 is a cross-platform library for Intel® RealSense�
 
 The SDK allows depth and color streaming, and provides intrinsic and extrinsic calibration information. The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for record and playback of streaming sessions.
 
-
+#### Optional Components
+ 
 #### Package Parameters
 The following package parameters can be set:
- * `/NoIcons` - install no icons
- * `/Components` - list of components optional components to install.
+ * ``/NoIcons`` - install quick lauch icon
+ * ``/Components`` - list of components optional components to install.
 
-
- 
-These parameters can be passed to the installer with the use of `-params`.
-For example: `-params '"/NoIcons /Components tools,dev"'`.
+These parameters can be passed to the installer with the use of ``-params``.
+For example: ``-params ''"/NoIcons /Components tools,dev"''``.
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and
-let them know the package is no longer updating correctly.
+let them know the package is no longer updating correctly.    
     </description>
-    
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
