@@ -1,5 +1,8 @@
 import-module au
 
+# fom packet dependencies based on example from:
+# https://github.com/flcdrg/au-packages/blob/master/typescript-vs2015/update.ps1
+
 $releases = 'https://github.com/IntelRealSense/librealsense/releases'
 
 function global:au_SearchReplace {
@@ -22,7 +25,7 @@ function global:au_GetLatest {
         InstallerFileName = Split-Path $url -Leaf
         URL32   = 'https://github.com' + $url
         Version = $version
-    }
+    }    
 }
 
 function Set-DescriptionFromInstaller($Package) {
@@ -36,7 +39,7 @@ function Set-DescriptionFromInstaller($Package) {
     }
 
     # Extract components from the installer
-    .\tools\innounp.exe -x $installer_path "-d$pkg_path" 'install_script.iss'
+    ..\tools\bin\innounp.exe -x $installer_path "-d$pkg_path" 'install_script.iss'
     
     if($LASTEXITCODE -ne 0) {
         throw "Error extracting the installer meta file, with the components."
@@ -58,8 +61,7 @@ function Set-DescriptionFromInstaller($Package) {
         $components.Add($component_keys[$i], $component_descriptions[$i])
     }
     
-    
-    
+    # Generate de components documentation from the installer options.
     $description_components = " $($components.GetEnumerator() | % { "* ``$($_.Name)`` - $($_.Value)`n" })"
     
     $description_body = "#### Optional Components`n" + $description_components + "`n"

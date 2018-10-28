@@ -44,8 +44,8 @@ environment:
     secure: Dxr5XQN+BO6gLqW84qvU2LiX4nx438aUKgEoNg6EZreDL/vRNLp3wXrPWvTO4J5A # https://ci.appveyor.com/tools/encrypt
 
 init:
-- git config --global user.email "chocolatey@realdimensions.net"
-- git config --global user.name "Chocolatey"
+- git config --global user.email "mario.silva.costa@gmail.com"
+- git config --global user.name "mjscosta"
 - git config --global core.safecrlf false
 
 install:
@@ -53,6 +53,10 @@ install:
 - ps: $PSVersionTable
 - git --version
 - choco --version
+- choco install paket.powershell
+- ps: |
+    Paket-Install
+
 - ps: |
     git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
     . "$Env:TEMP/au/scripts/Install-AU.ps1" $Env:au_version
