@@ -53,9 +53,7 @@ install:
 - ps: $PSVersionTable
 - git --version
 - choco --version
-- choco install paket.powershell
-- ps: |
-    RefreshEnv ; Paket-Install
+- choco install paket
 
 - ps: |
     git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
@@ -71,6 +69,8 @@ install:
 # - cinst chocolatey-core.extension
     
 build_script:
+- ps: | pwd ; paket install
+
 - ps: |
     $ErrorActionPreference = 'Continue'
 
