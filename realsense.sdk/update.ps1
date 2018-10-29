@@ -41,8 +41,6 @@ function global:au_SearchReplace {
 }
 
 function global:au_GetLatest {
-    $download_page = Invoke-WebRequest -UseBasicParsing -Uri $releases
-    
     $htmlWeb = New-Object HtmlAgilityPack.HtmlWeb
     $htmlWeb.AutoDetectEncoding = $true
     $doc = $htmlWeb.Load($releases)
@@ -53,6 +51,7 @@ function global:au_GetLatest {
     $allReleaselinks = Get-Links $doc $false $fileFilter
 
     $version = Get-LatestVersionFromUrl $allReleaselinks[0]
+    $url = $allReleaselinks[0]
 
     if($preReleaselinks) {
         $preReleaseVersion = Get-LatestVersionFromUrl $preReleaselinks[0]
@@ -62,6 +61,7 @@ function global:au_GetLatest {
         if($preReleaseVersion -gt $releaseVersion) {
         #Add to <major>.<minor>.<patch> a "-beta0", this will mark in chocolatey as pre-release.
             $version = $preReleaseVersion + '-beta0'
+            $url = $preReleaselinks[0]
         }
     }
 
