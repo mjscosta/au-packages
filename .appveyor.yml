@@ -55,7 +55,7 @@ install:
 - choco --version
 - choco install paket.powershell
 - ps: |
-    Paket-Install
+    RefreshEnv ; Paket-Install
 
 - ps: |
     git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
