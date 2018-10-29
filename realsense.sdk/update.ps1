@@ -2,8 +2,34 @@ import-module au
 
 # fom packet dependencies based on example from:
 # https://github.com/flcdrg/au-packages/blob/master/typescript-vs2015/update.ps1
+Add-type -Path ..\packages\HtmlAgilityPack\lib\Net45\HtmlAgilityPack.dll
 
 $releases = 'https://github.com/IntelRealSense/librealsense/releases'
+
+#TODO: This is common codefor github, move it to a common place to share with other auto packages.
+
+function Get-LatestVersionFromUrl($url) {
+# Extracts the version from the file, using the pattern below, if theres no version in the file, then return from the path.
+    $pathVersion = (Split-Path ( Split-Path $url ) -Leaf).Substring(1)
+    $installerFileName = Split-Path $url -Leaf
+    $matches = Select-String -InputObject $installerFileName -Pattern '(-((\d+\.){3,}\d+))?\.exe$'
+    $fileVersion = $matches.Matches.Groups[2].Value
+
+    if($fileVersion) {
+        return $fileVersion
+    } else {
+        return $pathVersion
+    }
+}
+
+function Get-Links($doc, $preRelease, $fileNameFilter) {
+    if($preRelease) {
+        $result = $doc.DocumentNode.SelectNodes("//span[contains(text(),'Pre-release')]/../../../div/details/ul/li/a[contains(@href,'.exe')]").Attributes | ? { $_.Name -eq 'href' -and $_.Value -match $fileNameFilter } | % Value
+    } else {
+        $result = $doc.DocumentNode.SelectNodes("//a[contains(@href, '.exe')]").Attributes | ? { $_.Name -eq 'href' -and $_.Value -match $fileNameFilter } | % Value
+    }
+    return $result
+}
 
 function global:au_SearchReplace {
    @{
@@ -17,9 +43,27 @@ function global:au_SearchReplace {
 function global:au_GetLatest {
     $download_page = Invoke-WebRequest -UseBasicParsing -Uri $releases
     
-    # there are two sdk installer names and executables
-    $url   = $download_page.links | ? href -match 'Intel.RealSense.SDK.exe$|rssetup-(\d+\.){3,}\d+\.exe$' | % href | select -First 1
-    $version = (Split-Path ( Split-Path $url ) -Leaf).Substring(1)
+    $htmlWeb = New-Object HtmlAgilityPack.HtmlWeb
+    $htmlWeb.AutoDetectEncoding = $true
+    $doc = $htmlWeb.Load($releases)
+
+    $fileFilter = '(Intel.RealSense.SDK|rssetup)(-(\d+\.){3,}\d+)?\.exe$'
+
+    $preReleaselinks = Get-Links $doc $true $fileFilter
+    $allReleaselinks = Get-Links $doc $false $fileFilter
+
+    $version = Get-LatestVersionFromUrl $allReleaselinks[0]
+
+    if($preReleaselinks) {
+        $preReleaseVersion = Get-LatestVersionFromUrl $preReleaselinks[0]
+    }
+
+    if($preReleaseVersion) {
+        if($preReleaseVersion -gt $releaseVersion) {
+        #Add to <major>.<minor>.<patch> a "-beta0", this will mark in chocolatey as pre-release.
+            $version = $preReleaseVersion + '-beta0'
+        }
+    }
 
     @{
         InstallerFileName = Split-Path $url -Leaf
@@ -27,6 +71,8 @@ function global:au_GetLatest {
         Version = $version
     }    
 }
+
+
 
 function Set-DescriptionFromInstaller($Package) {
     $pkg_path = [System.IO.Path]::GetFullPath("$Env:TEMP\chocolatey\$($package.Name)\" + $global:Latest.Version)

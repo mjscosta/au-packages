@@ -1,13 +1,10 @@
 
-<!-- EDIT ME-->
 
 [![](https://ci.appveyor.com/api/projects/status/github/mjscosta/au-packages?svg=true)](https://ci.appveyor.com/project/mjscosta/au-packages)
-[Update status](https://gist.github.com/YOUR_GITHUB_USERNAME_HERE/YOUR_GIST_ID_HERE)
+[Update status](https://gist.github.com/mjscosta/6e8cb6d8efd07b26a8eee81aed5a99dc)
 [![](http://transparent-favicon.info/favicon.ico)](#)
 [chocolatey/mario.costa](https://chocolatey.org/profiles/mario.costa)
 
-<!-- EDIT ME-->
-<!-- REMOVE THE squiggles "~" surrounding this (this should not be a code block) -->
 
 This repository contains [chocolatey automatic packages](https://chocolatey.org/docs/automatic-packages).  
 The repository is setup so that you can manage your packages entirely from the GitHub web interface (using AppVeyor to update and push packages) and/or using the local repository copy.
@@ -18,6 +15,7 @@ To run locally you will need:
 
 - Powershell 5+.
 - [Chocolatey Automatic Package Updater Module](https://github.com/majkinetor/au): `Install-Module au` or `cinst au`.
+- [Paket.PowerShell](https://chocolatey.org/packages/Paket.PowerShell/) `cinst paket.powershell` and run `Packet-Install` on the *au_packages* folder
 
 In order to setup AppVeyor update runner please take a look at the AU wiki [AppVeyor section](https://github.com/majkinetor/au/wiki/AppVeyor).
 
@@ -32,18 +30,22 @@ In a package directory run: `Test-Package`. This function can be used to start t
 
 ## Automatic package update
 
+### Install
+
+If testing locally 
+
 ### Single package
 
 Run from within the directory of the package to update that package:
-   
+
     cd <package_dir>
     ./update.ps1
- 
+
 If this script is missing, the package is not automatic.  
 Set `$au_Force = $true` prior to script call to update the package even if no new version is found.
 
 ### Multiple packages
- 
+
 To update all packages run `./update_all.ps1`. It accepts few options:
 
 ```powershell
@@ -112,4 +114,4 @@ To use this system with your own packages do the following steps:
 Add your own packages now, with this in mind:
 * You can keep both manual and automatic packages together. To get only AU packages any time use `Get-AUPackages` function (alias `lsau` or `gau`)
 * Keep all package additional files in the package directory (icons, screenshots etc.). This keeps everything related to one package in its own directory so it is easy to move it around or remove it.
- 
+
