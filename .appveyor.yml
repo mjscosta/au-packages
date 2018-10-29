@@ -69,7 +69,8 @@ install:
 # - cinst chocolatey-core.extension
     
 build_script:
-- ps: | pwd ; paket install
+- ps: | 
+    pwd ; paket install 
 
 - ps: |
     $ErrorActionPreference = 'Continue'
