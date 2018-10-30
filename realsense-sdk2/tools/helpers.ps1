@@ -16,7 +16,7 @@ function Get-InstallOptions( [HashTable]$pp )
     }
     
     if ($pp.NoIcons) { 
-        $res += "/NOICONS"
+        $res += '/NOICONS', '/TASKS=""'
     } 
     
     if ($pp.Full) {
