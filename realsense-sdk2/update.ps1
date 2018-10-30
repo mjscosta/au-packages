@@ -148,7 +148,7 @@ let them know the package is no longer updating correctly.'
 }
 
 function Set-ReleaseNotes($Package) {
-    $xml_ReleaseNotes = $Package.NuspecXml.GetElementsByTagName('description')[0]
+    $xml_ReleaseNotes = $Package.NuspecXml.GetElementsByTagName('releaseNotes')[0]
     $xml_ReleaseNotes.RemoveAll()
     $xml_ReleaseNotes.InnerXml = Get-ReleaseNotesUrl $Global:Latest.Version
 }
