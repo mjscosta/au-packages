@@ -69,7 +69,7 @@ The following package parameters can be set:
  * `/AddToolsToPath` - Adds to path environment the `tools` folder.
 
 These parameters can be passed to the installer with the use of `-params`.
-For example: `-params '"/NoIcons /Components tools,dev"'`.
+For example: `--params '"/NoIcons /Components:tools,dev"'`.
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and
