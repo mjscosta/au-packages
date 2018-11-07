@@ -62,6 +62,7 @@ The SDK allows depth and color streaming, and provides intrinsic and extrinsic c
  
 #### Package Parameters
 The following package parameters can be set:
+
  * `/NoIcons` - install quick lauch icon
  * `/Components` - list of components optional components to install.
  * `/Addx64LibsToPath` - Adds to path environment the `bin\x64` folder for dll resolution, for development purposes.

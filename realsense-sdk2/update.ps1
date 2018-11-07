@@ -126,7 +126,7 @@ function Set-DescriptionFromInstaller($Package) {
 The SDK allows depth and color streaming, and provides intrinsic and extrinsic calibration information. The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for record and playback of streaming sessions.
 '
 
-    $description_footer = '#### Package Parameters
+    $description_footer = "#### Package Parameters
 The following package parameters can be set:
 
  * `/NoIcons` - install quick lauch icon
@@ -136,18 +136,17 @@ The following package parameters can be set:
  * `/AddToolsToPath` - Adds to path environment the `tools` folder.
 
 These parameters can be passed to the installer with the use of `-params`.
-For example: `-params ''"/NoIcons /Components tools,dev"''`.
+For example: `--params '`"/NoIcons /Components:tools,dev`"'`
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and
-let them know the package is no longer updating correctly.'
+let them know the package is no longer updating correctly."
     
     $updated_description = $description_header + $description_body + $description_footer
     $cdata = $Package.NuspecXml.CreateCDataSection($updated_description)
     $xml_Description = $Package.NuspecXml.GetElementsByTagName('description')[0]
     $xml_Description.RemoveAll()
     $xml_Description.AppendChild($cdata) | Out-Null
-
 }
 
 function Set-ReleaseNotes($Package) {
