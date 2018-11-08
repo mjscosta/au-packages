@@ -12,7 +12,7 @@ $packageArgs = @{
 
 if ($key.Count -eq 1) {
   $key | ForEach-Object {
-    $packageArgs['file'] = "$($_.QuietUninstallString)"
+    $packageArgs['file'] = $_.QuietUninstallString
 
     Uninstall-ChocolateyPackage @packageArgs
 
