@@ -38,7 +38,7 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
 	<!-- extracted from  librealsense/package.xml -->
     <authors>Sergey Dorodnicov,Mark Horn,Reagan Lopez,Itay Carpis</authors>
     <projectUrl>https://realsense.intel.com/</projectUrl>
-    <iconUrl>https://github.com/IntelRealSense/librealsense/blob/master/doc/img/realsense.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/IntelRealSense/librealsense/master/doc/img/realsense.png</iconUrl>
     <licenseUrl>https://github.com/IntelRealSense/librealsense/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <projectSourceUrl>https://github.com/IntelRealSense/librealsense</projectSourceUrl>
