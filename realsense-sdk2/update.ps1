@@ -129,14 +129,14 @@ The SDK allows depth and color streaming, and provides intrinsic and extrinsic c
     $description_footer = "#### Package Parameters
 The following package parameters can be set:
 
- * `/NoIcons` - install quick lauch icon
- * `/Components` - list of components optional components to install.
- * `/Addx64LibsToPath` - Adds to path environment the ``bin\x64`` folder for dll resolution, for development purposes.
- * `/Addx86LibsToPath` - Adds to path environment the ``bin\x86`` folder for dll resolution, for development purposes.
- * `/AddToolsToPath` - Adds to path environment the `tools` folder.
+ * ``/NoIcons`` - install quick lauch icon
+ * ``/Components`` - list of components optional components to install.
+ * ``/Addx64LibsToPath`` - Adds to path environment the ``bin\x64`` folder for dll resolution, for development purposes.
+ * ``/Addx86LibsToPath`` - Adds to path environment the ``bin\x86`` folder for dll resolution, for development purposes.
+ * ``/AddToolsToPath`` - Adds to path environment the `tools` folder.
 
-These parameters can be passed to the installer with the use of `-params`.
-For example: `--params '`"/NoIcons /Components:tools,dev`"'`
+These parameters can be passed to the installer with the use of ``-params``.
+For example: ``--params '`"/NoIcons /Components:tools,dev`"'``
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and
