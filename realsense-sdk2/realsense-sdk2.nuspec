@@ -26,7 +26,7 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
     <!-- version should MATCH as closely as possible with the underlying software -->
     <!-- Is the version a prerelease of a version? https://docs.nuget.org/create/versioning#creating-prerelease-packages -->
     <!-- Note that unstable versions like 0.0.1 can be considered a released version, but it's possible that one can release a 0.0.1-beta before you release a 0.0.1 version. If the version number is final, that is considered a released version and not a prerelease. -->
-    <version>2.16.1</version>
+    <version>2.16.3.312-beta0</version>
     <packageSourceUrl>https://github.com/mjscosta/au-packages/tree/master/realsense-sdk2</packageSourceUrl>
     <!-- owners is a poor name for maintainers of the package. It sticks around by this name for compatibility reasons. It basically means you. -->
     <owners>Mario Costa</owners>
@@ -50,16 +50,15 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
     <description><![CDATA[Intel® RealSense™ SDK 2.0 is a cross-platform library for Intel® RealSense™ depth cameras (D400 series and the SR300).
 
 The SDK allows depth and color streaming, and provides intrinsic and extrinsic calibration information. The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for record and playback of streaming sessions.
-
 #### Optional Components
  * `tools` - Intel RealSense Viewer and Quality Tool
  * `dev` - C / C++ Developer Package
+ * `cv` - OpenCV examples
  * `py` - Python 2.7 / 3.6 Developer Package
  * `net` - .NET Developer Package
  * `matlab` - Matlab Developer Package
  * `pdb` - Debug Symbols
 
- 
 #### Package Parameters
 The following package parameters can be set:
 
@@ -67,15 +66,15 @@ The following package parameters can be set:
  * `/Components` - list of components optional components to install.
  * `/Addx64LibsToPath` - Adds to path environment the `bin\x64` folder for dll resolution, for development purposes.
  * `/Addx86LibsToPath` - Adds to path environment the `bin\x86` folder for dll resolution, for development purposes.
- * `/AddToolsToPath` - Adds to path environment the `tools` folder.
+ * `/AddToolsToPath` - Adds to path environment the 	ools folder.
 
 These parameters can be passed to the installer with the use of `-params`.
-For example: `--params '"/NoIcons /Components:tools,dev"'`.
+For example: `--params '"/NoIcons /Components:tools,dev"'`
 
 **Please Note**: This is an automatically updated package. If you find it is 
 out of date by more than a day or two, please contact the maintainer(s) and
 let them know the package is no longer updating correctly.]]></description>
-  <releaseNotes>https://github.com/IntelRealSense/librealsense/releases/tag/v2.16.1</releaseNotes>
+  <releaseNotes>https://github.com/IntelRealSense/librealsense/releases/tag/v2.16.3</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
