@@ -21,15 +21,3 @@ $packageArgs = @{
 Install-ChocolateyPackage @packageArgs
 
 $installDir = (${env:ProgramFiles(x86)}, ${env:ProgramFiles} -ne $null)[0]
-
-if($pp.Addx64LibsToPath) {
-    Install-ChocolateyPath -PathToInstall ($installDir + '\Intel RealSense SDK 2.0\bin\x64') -PathType Machine 
-}
-
-if($pp.Addx86LibsToPath) {
-    Install-ChocolateyPath -PathToInstall ($installDir + '\Intel RealSense SDK 2.0\bin\x86') -PathType Machine 
-}
-
-if($pp.AddToolsToPath) {
-    Install-ChocolateyPath -PathToInstall ($installDir + '\Intel RealSense SDK 2.0\tools') -PathType Machine 
-}

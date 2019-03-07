@@ -64,9 +64,6 @@ The following package parameters can be set:
 
  * `/NoIcons` - install quick lauch icon
  * `/Components` - list of components optional components to install.
- * `/Addx64LibsToPath` - Adds to path environment the `bin\x64` folder for dll resolution, for development purposes.
- * `/Addx86LibsToPath` - Adds to path environment the `bin\x86` folder for dll resolution, for development purposes.
- * `/AddToolsToPath` - Adds to path environment the 	ools folder.
 
 These parameters can be passed to the installer with the use of `-params`.
 For example: `--params '"/NoIcons /Components:tools,dev"'`
